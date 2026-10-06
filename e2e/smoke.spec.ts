@@ -21,7 +21,7 @@ test("smoke: ロードして遊べて run_end が出る", async ({ page }) => {
   });
   page.on("pageerror", (e) => errors.push(String(e)));
   page.on("response", (r) => {
-    if (r.status() >= 400) errors.push(`HTTP ${r.status()} ${r.url()}`);
+    if (r.status() >= 400 && !new URL(r.url()).pathname.startsWith("/api/")) errors.push(`HTTP ${r.status()} ${r.url()}`);
   });
 
   await page.addInitScript(() => {
@@ -29,6 +29,22 @@ test("smoke: ロードして遊べて run_end が出る", async ({ page }) => {
     document.addEventListener("wr:telemetry", (e) => {
       window.__wrEvents.push((e as CustomEvent<Telemetry>).detail);
     });
+  });
+
+  // API はモック（smoke はサーバなしで完結させる）。telemetry POST の到達を記録して配線を検証する。
+  const posted: string[] = [];
+  await page.route("**/api/**", async (route) => {
+    const req = route.request();
+    const url = new URL(req.url());
+    if (url.pathname === "/api/user" && req.method() === "POST") {
+      return route.fulfill({ status: 201, contentType: "application/json", body: JSON.stringify({ uuid: "e2e-0000-uuid" }) });
+    }
+    if (url.pathname === "/api/telemetry" && req.method() === "POST") {
+      const body = JSON.parse(req.postData() ?? "{}") as { event?: string; uuid?: string };
+      if (body.uuid === "e2e-0000-uuid" && body.event) posted.push(body.event);
+      return route.fulfill({ status: 204, body: "" });
+    }
+    return route.fulfill({ status: 404, contentType: "application/json", body: JSON.stringify({ detail: "mock" }) });
   });
 
   await page.goto("/");
@@ -54,6 +70,11 @@ test("smoke: ロードして遊べて run_end が出る", async ({ page }) => {
   expect(runEnd).toBeDefined();
   expect(Number(runEnd?.meta?.["distance"])).toBeGreaterThan(0);
   expect(Number(await page.locator("#final-distance").textContent())).toBeGreaterThan(0);
+
+  // テレメトリがサーバ（モック）へ POST されていること
+  await expect.poll(() => posted.includes("run_end")).toBe(true);
+  expect(posted).toContain("page_load");
+  expect(posted).toContain("run_start");
 
   expect(errors, errors.join("\n")).toEqual([]);
 });

@@ -7,6 +7,10 @@ export default defineConfig({
   define: {
     __APP_VERSION__: JSON.stringify(process.env["APP_VERSION"] ?? "dev"),
   },
+  server: {
+    // 開発時は /api をローカルの FastAPI（uvicorn :8000）へ転送。本番は Caddy が同じ振り分けを行う。
+    proxy: { "/api": "http://localhost:8000" },
+  },
   build: {
     target: "es2022",
     sourcemap: false,

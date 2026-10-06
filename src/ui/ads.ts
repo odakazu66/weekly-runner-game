@@ -32,11 +32,11 @@ export function openAd(s: AdStrings): void {
         window.clearInterval(timer);
         counter.textContent = s.adDone;
         if (!session.ok || !session.data) {
-          status.textContent = s.notConnected;
+          status.textContent = session.reason ?? s.notConnected;
           return;
         }
         void completeDevAd(session.data.nonce).then((r) => {
-          status.textContent = r.ok && r.data ? `+1 (${r.data.influence})` : s.notConnected;
+          status.textContent = r.ok && r.data ? `+1 → ${r.data.influence}` : (r.reason ?? s.notConnected);
         });
       }
     }, 1000);

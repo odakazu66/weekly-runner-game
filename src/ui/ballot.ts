@@ -40,11 +40,15 @@ export function openBallot(s: BallotStrings, nowMs: number): void {
 
   void fetchBallot().then((r) => {
     if (!r.ok || !r.data) {
-      status.textContent = s.notConnected;
+      status.textContent = r.reason ?? s.notConnected;
+      return;
+    }
+    if (!r.data.open) {
+      status.textContent = s.ballotClosed;
       return;
     }
     const checks: HTMLInputElement[] = [];
-    for (const p of r.data) {
+    for (const p of r.data.proposals) {
       const label = document.createElement("label");
       label.className = "proposal";
       const cb = document.createElement("input");
@@ -63,7 +67,7 @@ export function openBallot(s: BallotStrings, nowMs: number): void {
     submit.addEventListener("click", () => {
       const ids = checks.filter((c) => c.checked).map((c) => Number(c.value)).slice(0, MAX_APPROVALS);
       void submitVote(ids).then((res) => {
-        status.textContent = res.ok ? "OK" : s.notConnected;
+        status.textContent = res.ok && res.data ? `OK (weight ${res.data.weight})` : (res.reason ?? s.notConnected);
       });
     });
     list.append(submit);

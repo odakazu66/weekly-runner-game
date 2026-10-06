@@ -40,7 +40,8 @@ export function openFeedback(s: FeedbackStrings): void {
     if (!text) return;
     submit.disabled = true;
     void submitFeedback(select.value as FeedbackCategory, text).then((r) => {
-      status.textContent = r.ok ? "OK" : s.notConnected;
+      status.textContent = r.ok ? "OK" : (r.reason ?? s.notConnected);
+      if (r.ok) textarea.value = "";
       submit.disabled = false;
     });
   });
