@@ -1,0 +1,10 @@
+{
+  "types": [
+    { "id": "block", "weight": 5, "width": 22, "height": 22, "yOffset": 0 },
+    { "id": "spike", "weight": 3, "width": 18, "height": 26, "yOffset": 0 },
+    { "id": "wall", "weight": 2, "width": 14, "height": 40, "yOffset": 0 },
+    { "id": "bar", "weight": 2, "width": 40, "height": 10, "yOffset": 34 }
+  ],
+  "gap": { "min": 150, "max": 260 },
+  "firstSpawnDistance": 320
+}

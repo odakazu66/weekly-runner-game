@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://weekly-runner/params/obstacles.schema.json",
+  "title": "obstacles",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["types", "gap", "firstSpawnDistance"],
+  "properties": {
+    "types": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "weight", "width", "height", "yOffset"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]{0,23}$" },
+          "weight": { "type": "number", "exclusiveMinimum": 0, "maximum": 100 },
+          "width": { "type": "number", "minimum": 6, "maximum": 80 },
+          "height": { "type": "number", "minimum": 6, "maximum": 80 },
+          "yOffset": { "type": "number", "minimum": 0, "maximum": 80 }
+        }
+      }
+    },
+    "gap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "number", "minimum": 80, "maximum": 600 },
+        "max": { "type": "number", "minimum": 80, "maximum": 800 }
+      }
+    },
+    "firstSpawnDistance": { "type": "number", "minimum": 100, "maximum": 1200 }
+  }
+}

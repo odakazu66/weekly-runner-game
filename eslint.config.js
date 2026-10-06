@@ -1,5 +1,6 @@
 // @ts-check
 import js from "@eslint/js";
+import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
@@ -19,7 +20,18 @@ export default tseslint.config(
           message: "Math.random は禁止。src/core/rng.ts のシード付き PRNG (mulberry32) を使うこと。",
         },
       ],
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
     },
+  },
+  {
+    // ブラウザで動くコード
+    files: ["src/**/*.ts"],
+    languageOptions: { globals: { ...globals.browser } },
+  },
+  {
+    // Node で動くコード（スクリプト・設定・テスト）
+    files: ["scripts/**/*.mjs", "*.config.{ts,js,mjs}", "e2e/**/*.ts", "tests/**/*.ts"],
+    languageOptions: { globals: { ...globals.node, ...globals.browser } },
   },
   {
     // コア（純関数 step）は決定論を守るため DOM・時刻・乱数への参照を禁止（§5）。

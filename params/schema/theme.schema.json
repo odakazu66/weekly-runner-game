@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://weekly-runner/params/theme.schema.json",
+  "title": "theme",
+  "description": "アセットレス。画像パスを持てる余地を作らない: 色は #RRGGBB のみ、図形色はパレットキー列挙のみ、未知キーは全て拒否。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["palette", "shapes"],
+  "properties": {
+    "palette": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bg", "ground", "groundLine", "player", "obstacle", "accent", "text"],
+      "properties": {
+        "bg": { "$ref": "#/$defs/color" },
+        "ground": { "$ref": "#/$defs/color" },
+        "groundLine": { "$ref": "#/$defs/color" },
+        "player": { "$ref": "#/$defs/color" },
+        "obstacle": { "$ref": "#/$defs/color" },
+        "accent": { "$ref": "#/$defs/color" },
+        "text": { "$ref": "#/$defs/color" }
+      }
+    },
+    "shapes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["player", "obstacles"],
+      "properties": {
+        "player": { "$ref": "#/$defs/shapeList" },
+        "obstacles": {
+          "type": "object",
+          "propertyNames": { "pattern": "^[a-z][a-z0-9_]{0,23}$" },
+          "additionalProperties": { "$ref": "#/$defs/shapeList" },
+          "minProperties": 1
+        }
+      }
+    }
+  },
+  "$defs": {
+    "color": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+    "paletteKey": { "type": "string", "enum": ["bg", "ground", "groundLine", "player", "obstacle", "accent", "text"] },
+    "unit": { "type": "number", "minimum": -0.5, "maximum": 1.5 },
+    "shapeList": { "type": "array", "minItems": 1, "maxItems": 16, "items": { "$ref": "#/$defs/shape" } },
+    "shape": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "x", "y", "w", "h", "color"],
+          "properties": {
+            "kind": { "const": "rect" },
+            "x": { "$ref": "#/$defs/unit" },
+            "y": { "$ref": "#/$defs/unit" },
+            "w": { "$ref": "#/$defs/unit" },
+            "h": { "$ref": "#/$defs/unit" },
+            "color": { "$ref": "#/$defs/paletteKey" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "cx", "cy", "r", "color"],
+          "properties": {
+            "kind": { "const": "circle" },
+            "cx": { "$ref": "#/$defs/unit" },
+            "cy": { "$ref": "#/$defs/unit" },
+            "r": { "type": "number", "minimum": 0, "maximum": 1 },
+            "color": { "$ref": "#/$defs/paletteKey" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "x1", "y1", "x2", "y2", "x3", "y3", "color"],
+          "properties": {
+            "kind": { "const": "triangle" },
+            "x1": { "$ref": "#/$defs/unit" },
+            "y1": { "$ref": "#/$defs/unit" },
+            "x2": { "$ref": "#/$defs/unit" },
+            "y2": { "$ref": "#/$defs/unit" },
+            "x3": { "$ref": "#/$defs/unit" },
+            "y3": { "$ref": "#/$defs/unit" },
+            "color": { "$ref": "#/$defs/paletteKey" }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://weekly-runner/params/physics.schema.json",
+  "title": "physics",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["world", "gravity", "jumpVelocity", "maxFallSpeed", "player", "groundY", "hitboxInset", "pixelsPerMeter"],
+  "properties": {
+    "world": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 240, "maximum": 800 },
+        "height": { "type": "integer", "minimum": 160, "maximum": 480 }
+      }
+    },
+    "gravity": { "type": "number", "minimum": 0.1, "maximum": 1.5 },
+    "jumpVelocity": { "type": "number", "minimum": 3, "maximum": 14 },
+    "maxFallSpeed": { "type": "number", "minimum": 4, "maximum": 20 },
+    "player": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "width", "height"],
+      "properties": {
+        "x": { "type": "number", "minimum": 20, "maximum": 160 },
+        "width": { "type": "number", "minimum": 8, "maximum": 48 },
+        "height": { "type": "number", "minimum": 8, "maximum": 64 }
+      }
+    },
+    "groundY": { "type": "number", "minimum": 100, "maximum": 440 },
+    "hitboxInset": { "type": "number", "minimum": 0, "maximum": 8 },
+    "pixelsPerMeter": { "type": "number", "minimum": 4, "maximum": 40 }
+  }
+}

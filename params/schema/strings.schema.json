@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://weekly-runner/params/strings.schema.json",
+  "title": "strings",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title", "subtitle", "tapToStart", "distanceLabel", "bestLabel", "meterUnit", "gameOver", "retry",
+    "sendFeedback", "watchAd", "vote", "patchNotes", "close", "feedbackPlaceholder", "feedbackCategories",
+    "submit", "notConnected", "adCountdown", "adDone", "ballotClosed", "ballotOpen", "reportEmpty"
+  ],
+  "properties": {
+    "title": { "$ref": "#/$defs/text" },
+    "subtitle": { "$ref": "#/$defs/text" },
+    "tapToStart": { "$ref": "#/$defs/text" },
+    "distanceLabel": { "$ref": "#/$defs/text" },
+    "bestLabel": { "$ref": "#/$defs/text" },
+    "meterUnit": { "$ref": "#/$defs/text" },
+    "gameOver": { "$ref": "#/$defs/text" },
+    "retry": { "$ref": "#/$defs/text" },
+    "sendFeedback": { "$ref": "#/$defs/text" },
+    "watchAd": { "$ref": "#/$defs/text" },
+    "vote": { "$ref": "#/$defs/text" },
+    "patchNotes": { "$ref": "#/$defs/text" },
+    "close": { "$ref": "#/$defs/text" },
+    "feedbackPlaceholder": { "$ref": "#/$defs/text" },
+    "feedbackCategories": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bug", "balance", "feature", "other"],
+      "properties": {
+        "bug": { "$ref": "#/$defs/text" },
+        "balance": { "$ref": "#/$defs/text" },
+        "feature": { "$ref": "#/$defs/text" },
+        "other": { "$ref": "#/$defs/text" }
+      }
+    },
+    "submit": { "$ref": "#/$defs/text" },
+    "notConnected": { "$ref": "#/$defs/text" },
+    "adCountdown": { "$ref": "#/$defs/text" },
+    "adDone": { "$ref": "#/$defs/text" },
+    "ballotClosed": { "$ref": "#/$defs/text" },
+    "ballotOpen": { "$ref": "#/$defs/text" },
+    "reportEmpty": { "$ref": "#/$defs/text" }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "description": "URL を含められないように :// を禁止（憲法第2条: 外部サイト誘導の禁止）",
+      "pattern": "^(?!.*://).*$"
+    }
+  }
+}

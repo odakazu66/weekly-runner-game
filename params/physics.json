@@ -1,0 +1,10 @@
+{
+  "world": { "width": 400, "height": 240 },
+  "gravity": 0.38,
+  "jumpVelocity": 7.4,
+  "maxFallSpeed": 10,
+  "player": { "x": 60, "width": 20, "height": 28 },
+  "groundY": 200,
+  "hitboxInset": 3,
+  "pixelsPerMeter": 12
+}
