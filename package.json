@@ -1,0 +1,28 @@
+{
+  "name": "weekly-runner-game",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "週刊ランナー: アセットレス・ワンタップランナー（実行時依存ゼロ）",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "validate:params": "node scripts/validate-params.mjs",
+    "check:size": "node scripts/check-bundle-size.mjs",
+    "guard": "node scripts/guard-diff.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.63.0",
+    "eslint": "10.12.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.1",
+    "vite": "8.3.3",
+    "vitest": "5.0.3"
+  }
+}
