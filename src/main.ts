@@ -1,6 +1,6 @@
 // ループ・入力・画面遷移。core（純関数）に tick と入力を渡し、render に state を渡すだけの薄い層。
 
-import { track } from "./api";
+import { fetchBallot, track } from "./api";
 import { createState, distanceMeters, step } from "./core/step";
 import type { Input, Params, State } from "./core/types";
 import { draw } from "./render/draw";
@@ -114,6 +114,7 @@ function main(): void {
     }
     finalEl.textContent = String(m);
     show("gameover");
+    refreshVoteButton();
     track("run_end", { distance: m });
   }
 
@@ -131,7 +132,20 @@ function main(): void {
   $("retry").addEventListener("click", startRun);
   $("btn-feedback").addEventListener("click", () => openFeedback(strings));
   $("btn-ad").addEventListener("click", () => openAd(strings));
-  $("btn-vote").addEventListener("click", () => openBallot(strings, Date.now()));
+  const voteBtn = $<HTMLButtonElement>("btn-vote");
+  voteBtn.addEventListener("click", () => openBallot(strings));
+
+  // 投票ボタンの活性はサーバ判定（/api/ballot の open）。60 秒キャッシュ。
+  let ballotCheckedAt = -Infinity; // 初回は必ず取得する
+  function refreshVoteButton(): void {
+    if (performance.now() - ballotCheckedAt < 60_000) return;
+    ballotCheckedAt = performance.now();
+    void fetchBallot().then((r) => {
+      const open = r.ok && r.data ? r.data.open : false;
+      voteBtn.disabled = !open;
+      voteBtn.textContent = open ? strings.vote : strings.vote + strings.voteClosedSuffix;
+    });
+  }
   $("btn-report").addEventListener("click", () => openReport(strings));
 
   const hud = { distanceLabel: strings.distanceLabel, bestLabel: strings.bestLabel, meterUnit: strings.meterUnit };

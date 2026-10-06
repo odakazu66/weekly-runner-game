@@ -1,3 +1,4 @@
+import { resolve } from "node:path";
 import { defineConfig } from "vite";
 
 // 実行時依存ゼロ。ビルド成果物は dist/ に出力し、gzip 合計 200KB 以下を
@@ -12,6 +13,10 @@ export default defineConfig({
     proxy: { "/api": "http://localhost:8000" },
   },
   build: {
+    // マルチページ: ゲーム本体と週報ページ
+    rollupOptions: {
+      input: { main: resolve(__dirname, "index.html"), report: resolve(__dirname, "report.html") },
+    },
     target: "es2022",
     sourcemap: false,
   },

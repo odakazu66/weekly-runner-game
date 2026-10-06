@@ -5,43 +5,161 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "title", "subtitle", "tapToStart", "distanceLabel", "bestLabel", "meterUnit", "gameOver", "retry",
-    "sendFeedback", "watchAd", "vote", "patchNotes", "close", "feedbackPlaceholder", "feedbackCategories",
-    "submit", "notConnected", "adCountdown", "adDone", "ballotClosed", "ballotOpen", "reportEmpty"
+    "title",
+    "subtitle",
+    "tapToStart",
+    "distanceLabel",
+    "bestLabel",
+    "meterUnit",
+    "gameOver",
+    "retry",
+    "sendFeedback",
+    "watchAd",
+    "vote",
+    "patchNotes",
+    "close",
+    "feedbackPlaceholder",
+    "feedbackCategories",
+    "submit",
+    "notConnected",
+    "adCountdown",
+    "adDone",
+    "ballotClosed",
+    "ballotOpen",
+    "reportEmpty",
+    "voteClosedSuffix",
+    "ballotSchedule",
+    "lastResultsTitle",
+    "noResults",
+    "resultVotes",
+    "resultVoters",
+    "resultFallback",
+    "resultRejected",
+    "reportPageTitle",
+    "backToGame",
+    "resultSupport"
   ],
   "properties": {
-    "title": { "$ref": "#/$defs/text" },
-    "subtitle": { "$ref": "#/$defs/text" },
-    "tapToStart": { "$ref": "#/$defs/text" },
-    "distanceLabel": { "$ref": "#/$defs/text" },
-    "bestLabel": { "$ref": "#/$defs/text" },
-    "meterUnit": { "$ref": "#/$defs/text" },
-    "gameOver": { "$ref": "#/$defs/text" },
-    "retry": { "$ref": "#/$defs/text" },
-    "sendFeedback": { "$ref": "#/$defs/text" },
-    "watchAd": { "$ref": "#/$defs/text" },
-    "vote": { "$ref": "#/$defs/text" },
-    "patchNotes": { "$ref": "#/$defs/text" },
-    "close": { "$ref": "#/$defs/text" },
-    "feedbackPlaceholder": { "$ref": "#/$defs/text" },
+    "title": {
+      "$ref": "#/$defs/text"
+    },
+    "subtitle": {
+      "$ref": "#/$defs/text"
+    },
+    "tapToStart": {
+      "$ref": "#/$defs/text"
+    },
+    "distanceLabel": {
+      "$ref": "#/$defs/text"
+    },
+    "bestLabel": {
+      "$ref": "#/$defs/text"
+    },
+    "meterUnit": {
+      "$ref": "#/$defs/text"
+    },
+    "gameOver": {
+      "$ref": "#/$defs/text"
+    },
+    "retry": {
+      "$ref": "#/$defs/text"
+    },
+    "sendFeedback": {
+      "$ref": "#/$defs/text"
+    },
+    "watchAd": {
+      "$ref": "#/$defs/text"
+    },
+    "vote": {
+      "$ref": "#/$defs/text"
+    },
+    "patchNotes": {
+      "$ref": "#/$defs/text"
+    },
+    "close": {
+      "$ref": "#/$defs/text"
+    },
+    "feedbackPlaceholder": {
+      "$ref": "#/$defs/text"
+    },
     "feedbackCategories": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["bug", "balance", "feature", "other"],
+      "required": [
+        "bug",
+        "balance",
+        "feature",
+        "other"
+      ],
       "properties": {
-        "bug": { "$ref": "#/$defs/text" },
-        "balance": { "$ref": "#/$defs/text" },
-        "feature": { "$ref": "#/$defs/text" },
-        "other": { "$ref": "#/$defs/text" }
+        "bug": {
+          "$ref": "#/$defs/text"
+        },
+        "balance": {
+          "$ref": "#/$defs/text"
+        },
+        "feature": {
+          "$ref": "#/$defs/text"
+        },
+        "other": {
+          "$ref": "#/$defs/text"
+        }
       }
     },
-    "submit": { "$ref": "#/$defs/text" },
-    "notConnected": { "$ref": "#/$defs/text" },
-    "adCountdown": { "$ref": "#/$defs/text" },
-    "adDone": { "$ref": "#/$defs/text" },
-    "ballotClosed": { "$ref": "#/$defs/text" },
-    "ballotOpen": { "$ref": "#/$defs/text" },
-    "reportEmpty": { "$ref": "#/$defs/text" }
+    "submit": {
+      "$ref": "#/$defs/text"
+    },
+    "notConnected": {
+      "$ref": "#/$defs/text"
+    },
+    "adCountdown": {
+      "$ref": "#/$defs/text"
+    },
+    "adDone": {
+      "$ref": "#/$defs/text"
+    },
+    "ballotClosed": {
+      "$ref": "#/$defs/text"
+    },
+    "ballotOpen": {
+      "$ref": "#/$defs/text"
+    },
+    "reportEmpty": {
+      "$ref": "#/$defs/text"
+    },
+    "voteClosedSuffix": {
+      "$ref": "#/$defs/text"
+    },
+    "ballotSchedule": {
+      "$ref": "#/$defs/text"
+    },
+    "lastResultsTitle": {
+      "$ref": "#/$defs/text"
+    },
+    "noResults": {
+      "$ref": "#/$defs/text"
+    },
+    "resultVotes": {
+      "$ref": "#/$defs/text"
+    },
+    "resultVoters": {
+      "$ref": "#/$defs/text"
+    },
+    "resultFallback": {
+      "$ref": "#/$defs/text"
+    },
+    "resultRejected": {
+      "$ref": "#/$defs/text"
+    },
+    "reportPageTitle": {
+      "$ref": "#/$defs/text"
+    },
+    "backToGame": {
+      "$ref": "#/$defs/text"
+    },
+    "resultSupport": {
+      "$ref": "#/$defs/text"
+    }
   },
   "$defs": {
     "text": {

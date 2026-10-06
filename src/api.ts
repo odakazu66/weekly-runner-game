@@ -136,9 +136,36 @@ export interface BallotProposal {
 export interface Ballot {
   open: boolean;
   week: number;
+  server_time: number;
   opens_at: number;
   closes_at: number;
   proposals: BallotProposal[];
+}
+
+export interface ResultRow {
+  id: number;
+  title: string;
+  summary: string;
+  category: string;
+  tier_estimate: number;
+  score: number;
+  vote_score: number;
+  support_score: number;
+  voters: number;
+  status: string;
+}
+
+export interface WeekResults {
+  week: number;
+  closed_at: number;
+  voters: number;
+  fallback_to_author_influence: boolean;
+  ranked: ResultRow[];
+  rejected: { id: number; title: string; reason: string | null }[];
+}
+
+export function fetchResultsLatest(): Promise<ApiResult<WeekResults>> {
+  return request("GET", "/results/latest", undefined, false);
 }
 
 export function fetchBallot(): Promise<ApiResult<Ballot>> {

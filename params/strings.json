@@ -13,12 +13,28 @@
   "patchNotes": "今週のパッチノート",
   "close": "閉じる",
   "feedbackPlaceholder": "ここに意見をどうぞ（500字まで）",
-  "feedbackCategories": { "bug": "不具合", "balance": "難易度・バランス", "feature": "新しい要素", "other": "その他" },
+  "feedbackCategories": {
+    "bug": "不具合",
+    "balance": "難易度・バランス",
+    "feature": "新しい要素",
+    "other": "その他"
+  },
   "submit": "送信",
   "notConnected": "サーバ未接続（開発中）",
   "adCountdown": "広告視聴中…",
   "adDone": "視聴完了",
   "ballotClosed": "投票は金曜 03:00 〜 日曜 03:00（JST）に開きます",
   "ballotOpen": "投票受付中。最大3件まで承認できます",
-  "reportEmpty": "まだ週報はありません"
+  "reportEmpty": "まだ週報はありません",
+  "voteClosedSuffix": "（期間外）",
+  "ballotSchedule": "次回の投票: {open} 〜 {close}（JST）",
+  "lastResultsTitle": "前回の投票結果",
+  "noResults": "まだ結果はありません",
+  "resultVotes": "得票",
+  "resultVoters": "投票者",
+  "resultFallback": "投票者が 10 人未満だったため、意見著者の影響力で順位を決めました",
+  "resultRejected": "投票用紙に載らなかった要望",
+  "reportPageTitle": "週刊ランナー 週報",
+  "backToGame": "ゲームに戻る",
+  "resultSupport": "著者影響力"
 }

@@ -39,6 +39,9 @@ test("smoke: ロードして遊べて run_end が出る", async ({ page }) => {
     if (url.pathname === "/api/user" && req.method() === "POST") {
       return route.fulfill({ status: 201, contentType: "application/json", body: JSON.stringify({ uuid: "e2e-0000-uuid" }) });
     }
+    if (url.pathname === "/api/ballot") {
+      return route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ open: false, week: 40, server_time: 0, opens_at: 0, closes_at: 0, proposals: [] }) });
+    }
     if (url.pathname === "/api/telemetry" && req.method() === "POST") {
       const body = JSON.parse(req.postData() ?? "{}") as { event?: string; uuid?: string };
       if (body.uuid === "e2e-0000-uuid" && body.event) posted.push(body.event);
