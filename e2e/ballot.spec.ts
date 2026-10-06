@@ -2,7 +2,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
 const BALLOT_OPEN = {
-  open: true, week: 40, server_time: 1760036400, opens_at: 1760036400, closes_at: 1760209200,
+  open: true, week: 40, server_time: 1791482400, opens_at: 1791482400, closes_at: 1791655200,
   proposals: [
     { id: 1, title: "ジャンプを高く", summary: "jumpVelocity を上げる", category: "balance", tier_estimate: 1 },
     { id: 2, title: "新障害物", summary: "動く障害物", category: "feature", tier_estimate: 2 },
@@ -10,7 +10,7 @@ const BALLOT_OPEN = {
     { id: 4, title: "音を追加", summary: "効果音", category: "feature", tier_estimate: 2 },
   ],
 };
-const BALLOT_CLOSED = { ...BALLOT_OPEN, open: false, server_time: 1759800000, proposals: [] };
+const BALLOT_CLOSED = { ...BALLOT_OPEN, open: false, server_time: 1791342064, proposals: [] };
 const RESULTS = {
   week: 39, closed_at: 1759604400, voters: 3, fallback_to_author_influence: true,
   ranked: [
