@@ -7,8 +7,12 @@ import { execFileSync } from "node:child_process";
 const BASE = process.env.GUARD_BASE ?? "origin/main";
 const HEAD = process.env.GUARD_HEAD ?? "HEAD";
 
-// 書込不可（Tier 3）。
-const PROTECTED = [/^\.github\//, /^tests\/core\//, /^scripts\/guard-diff\.mjs$/, /^CLAUDE\.md$/, /^package-lock\.json$/];
+// 書込不可（Tier 3）。ゲートを構成するスクリプト・設定・E2E も含める（予算内でゲートを骨抜きにされないため。レビュー指摘）。
+const PROTECTED = [
+  /^\.github\//, /^tests\/core\//, /^CLAUDE\.md$/, /^package-lock\.json$/,
+  /^scripts\//, /^e2e\//,
+  /^eslint\.config\.js$/, /^vitest\.config\.ts$/, /^playwright\.config\.ts$/, /^vite\.config\.ts$/, /^tsconfig\.json$/,
+];
 // Tier 0/1 とエージェントの作業ファイル。予算に数えない。
 const FREE = [/^params\/(theme|strings|physics|obstacles|difficulty)\.json$/, /^tests\/generated\//, /^PLAN\.md$/, /^REPORT_DRAFT\.md$/];
 const SCHEMA = /^params\/schema\/.+\.schema\.json$/;
@@ -98,6 +102,8 @@ function checkSchemaAdditive(c) {
 
 function compareNode(a, b, where) {
   if (typeof a !== "object" || a === null || typeof b !== "object" || b === null) return;
+  // $ref の差し替え・撤去は参照先の制約（例: text の URL 禁止 pattern）を失うので非追加的とみなす
+  if (a.$ref !== undefined && a.$ref !== b.$ref) violations.push(`${where}: $ref の変更・撤去 (${a.$ref} → ${b.$ref ?? "なし"})`);
   if (a.type !== undefined && JSON.stringify(a.type) !== JSON.stringify(b.type)) violations.push(`${where}: type 変更`);
   if (a.additionalProperties === false && b.additionalProperties !== false) violations.push(`${where}: additionalProperties の緩和`);
   if (Array.isArray(a.required)) {

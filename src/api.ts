@@ -23,6 +23,8 @@ export interface ApiResult<T = undefined> {
 }
 
 let userPromise: Promise<string | null> | null = null;
+let userFailedAt = -Infinity;
+const USER_RETRY_MS = 60_000; // 発行に失敗したら 60 秒は再試行しない（429 時に叩き続けない）
 
 function readStoredUuid(): string | null {
   try {
@@ -43,6 +45,7 @@ function storeUuid(v: string): void {
 /** 匿名ユーザー uuid を取得（なければサーバで発行）。失敗時 null。 */
 export function ensureUser(): Promise<string | null> {
   if (userPromise) return userPromise;
+  if (performance.now() - userFailedAt < USER_RETRY_MS) return Promise.resolve(null);
   userPromise = (async () => {
     const stored = readStoredUuid();
     if (stored) return stored;
@@ -52,6 +55,7 @@ export function ensureUser(): Promise<string | null> {
       return r.data.uuid;
     }
     userPromise = null;
+    userFailedAt = performance.now();
     return null;
   })();
   return userPromise;

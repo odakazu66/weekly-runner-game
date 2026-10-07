@@ -9,8 +9,8 @@
 |---|---|---|---|
 | 0 | `params/theme.json`, `params/strings.json` | スキーマ検証のみ | 実質無制限 |
 | 1 | `params/physics.json`, `params/obstacles.json`, `params/difficulty.json` | Schema＋値域＋プレイテスト | スキーマ内なら無制限 |
-| 2 | `src/game/**` の TS コード、スキーマの**追加的**変更 | フルゲート（回帰＋smoke＋審査LLM） | ≤3ファイル・≤400行 |
-| 3 | `tests/core/**`, `.github/**`, `scripts/guard-diff.mjs`, `CLAUDE.md`, サーバ・台帳・パイプライン・憲法 | **書込不可** | 0 |
+| 2 | `src/**` の TS コード（core / render / ui / main / api）、`index.html` / `report.html`、スキーマの**追加的**変更 | フルゲート（回帰＋smoke＋審査LLM） | ≤3ファイル・≤400行 |
+| 3 | `tests/core/**`, `.github/**`, `scripts/**`, `e2e/**`, 各種設定（eslint / vitest / playwright / vite / tsconfig）, `CLAUDE.md`, `package.json` の依存, `package-lock.json`, サーバ・台帳・パイプライン・憲法 | **書込不可** | 0 |
 
 - スキーマ変更は追加的のみ（既存キーの削除・既存値域の拡大は禁止。`scripts/guard-diff.mjs` が検知）。
 - 棚卸し規約: Tier 2 で実装した新メカニクスは、必ず制御パラメータを `params/` に切り出して Tier 1 化すること。
