@@ -5,10 +5,12 @@ name: deploy
 # 必要なリポジトリ変数（Settings > Variables、秘密ではない識別子）:
 #   AWS_DEPLOY_ROLE_ARN  … OIDC 信頼ポリシーで本リポの main のみ許可された IAM ロール
 #   WR_BUCKET            … リリース用 S3 バケット名
+#   AWS_REGION           … バケットのリージョン（省略時 ap-northeast-1）
 
 on:
   push:
     branches: [main]
+  workflow_dispatch: {}   # 手動再デプロイ・Phase 3b の疎通確認用
 
 permissions:
   id-token: write
