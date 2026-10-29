@@ -20,7 +20,7 @@ concurrency:
 
 env:
   APP_VERSION: v${{ github.run_number }}
-  AWS_REGION: ap-northeast-1
+  AWS_REGION: ${{ vars.AWS_REGION || 'ap-northeast-1' }}
 
 jobs:
   deploy:
