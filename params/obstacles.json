@@ -6,5 +6,5 @@
     { "id": "bar", "weight": 2, "width": 40, "height": 10, "yOffset": 34 }
   ],
   "gap": { "min": 150, "max": 260 },
-  "firstSpawnDistance": 320
+  "firstSpawnDistance": 800
 }
